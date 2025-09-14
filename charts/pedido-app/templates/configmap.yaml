@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "pedido-app.fullname" . }}-config
+  labels:
+    {{- include "pedido-app.labels" . | nindent 4 }}
+data:
+  # URL de la base de datos
+  {{- if .Values.db.enabled }}
+  DATABASE_URL: "jdbc:postgresql://{{ include "pedido-app.fullname" . }}-db:5432/{{ .Values.db.auth.database }}"
+  {{- else }}
+  DATABASE_URL: "jdbc:postgresql://external-db:5432/pedidos_db"
+  {{- end }}
+
+  # Configuraciones de la aplicación
+  APP_NAME: "Sistema de Gestión de Pedidos"
+  APP_VERSION: {{ .Chart.AppVersion | quote }}
+
+  # Zona horaria
+  TZ: "America/Bogota"
+
+  # Puerto del servidor
+  SERVER_PORT: {{ .Values.service.port | quote }}
