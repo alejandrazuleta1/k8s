@@ -21,8 +21,11 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials',
                                                  usernameVariable: 'USER',
                                                  passwordVariable: 'PASS')]) {
-                    bat 'echo USER=%USER%'
-                    bat 'echo PASS=%PASS%'
+                    powershell '''
+                        Write-Host "Usuario: $env:USER"
+                        docker login -u $env:USER -p $env:PASS
+                        docker push alezuleta/my-tech:latest
+                    '''
                 }
             }
         }
