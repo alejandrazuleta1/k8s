@@ -17,16 +17,12 @@ pipeline {
             }
         }
         stage('Test Credentials') {
+            environment {
+                DOCKER_CREDS = credentials('dockerhub-credentials')
+            }
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials',
-                                                 usernameVariable: 'USER',
-                                                 passwordVariable: 'PASS')]) {
-                    powershell '''
-                        Write-Host "Usuario: $env:USER"
-                        docker login -u $env:USER -p $env:PASS
-                        docker push alezuleta/my-tech:latest
-                    '''
-                }
+                 bat 'docker login -u %DOCKER_CREDS_USR% -p %DOCKER_CREDS_PSW% || exit /b 1'
+                 bat 'docker push alezuleta/my-tech:latest || exit /b 1'
             }
         }
         /*stage('Push to Registry') {
