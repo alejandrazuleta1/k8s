@@ -9,7 +9,11 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t alezuleta/my-tech:latest .'
+                 dir('pedidos-backend') {
+                    script {
+                        sh 'docker build -t alezuleta/my-tech:latest .'
+                    }
+                }
             }
         }
         stage('Push to Registry') {
