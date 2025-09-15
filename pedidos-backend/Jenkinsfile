@@ -11,8 +11,8 @@ pipeline {
             steps {
                  dir('pedidos-backend') {
                     script {
-                        sh 'ls -la'
-                        sh 'docker build -t alezuleta/my-tech:latest .'
+                        bat 'ls -la'
+                        bat 'docker build -t alezuleta/my-tech:latest .'
                     }
                 }
             }
@@ -20,8 +20,8 @@ pipeline {
         stage('Push to Registry') {
             steps {
                 withCredentials([string(credentialsId: 'dockerhub-credentials', variable: 'PASS')]) {
-                    sh 'echo $PASS | docker login -u alezuleta --password-stdin'
-                    sh 'docker push alezuleta/my-tech:latest'
+                    bat 'echo $PASS | docker login -u alezuleta --password-stdin'
+                    bat 'docker push alezuleta/my-tech:latest'
                 }
             }
         }
