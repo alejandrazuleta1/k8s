@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/alejandrazuleta1/k8s', branch: 'main'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t my-tech:latest .'
+            }
+        }
+        stage('Push to Registry') {
+            steps {
+                withCredentials([string(credentialsId: 'dockerhub-pass', variable: 'PASS')]) {
+                    sh 'echo $PASS | docker login -u alezuleta --password-stdin'
+                    sh 'docker push alezuleta/my-tech:latest'
+                }
+            }
+        }
+    }
+}
