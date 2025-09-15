@@ -9,12 +9,12 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t my-tech:latest .'
+                sh 'docker build -t alezuleta/my-tech:latest .'
             }
         }
         stage('Push to Registry') {
             steps {
-                withCredentials([string(credentialsId: 'dockerhub-pass', variable: 'PASS')]) {
+                withCredentials([string(credentialsId: 'dockerhub-credentials', variable: 'PASS')]) {
                     sh 'echo $PASS | docker login -u alezuleta --password-stdin'
                     sh 'docker push alezuleta/my-tech:latest'
                 }
