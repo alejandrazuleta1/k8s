@@ -19,7 +19,7 @@ pipeline {
         stage('Push to Registry') {
             steps {
                 withCredentials([string(credentialsId: 'dockerhub-credentials', variable: 'PASS')]) {
-                    bat 'echo $PASS | docker login -u alezuleta --password-stdin'
+                    bat 'docker login -u alezuleta --password-stdin'
                     bat 'docker push alezuleta/my-tech:latest'
                 }
             }
