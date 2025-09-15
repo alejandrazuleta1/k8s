@@ -11,6 +11,7 @@ pipeline {
             steps {
                  dir('pedidos-backend') {
                     script {
+                        sh 'ls -la'
                         sh 'docker build -t alezuleta/my-tech:latest .'
                     }
                 }
