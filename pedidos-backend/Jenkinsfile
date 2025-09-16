@@ -16,24 +16,17 @@ pipeline {
                 }
             }
         }
-        stage('Test Credentials') {
-            environment {
-                DOCKER_CREDS = credentials('dockerhub-credentials')
-            }
+        stage('Push to Registry') {
             steps {
-                 bat 'docker login -u %DOCKER_CREDS_USR% -p %DOCKER_CREDS_PSW% || exit /b 1'
-                 bat 'docker push alezuleta/my-tech:latest || exit /b 1'
-            }
-        }
-        /*stage('Push to Registry') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials',
+                dir('pedidos-backend') {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials',
                                                  usernameVariable: 'USER',
                                                  passwordVariable: 'PASS')]) {
-                     bat 'docker login -u %USER% -p %PASS% || exit /b 1'
-                     bat 'docker push alezuleta/my-tech:latest || exit /b 1'
+                        bat 'docker login -u %USER% -p %PASS% || exit /b 1'
+                        bat 'docker push alezuleta/my-tech:latest || exit /b 1'
+                    }
                 }
             }
-        }*/
+        }
     }
 }
