@@ -18,13 +18,11 @@ pipeline {
         }
         stage('Push to Registry') {
             steps {
-                dir('pedidos-backend') {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials',
-                                                 usernameVariable: 'USER',
-                                                 passwordVariable: 'PASS')]) {
-                        bat 'docker login -u %USER% -p %PASS% || exit /b 1'
-                        bat 'docker push alezuleta/my-tech:latest || exit /b 1'
-                    }
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials',
+                                             usernameVariable: 'USER',
+                                             passwordVariable: 'PASS')]) {
+                    bat 'docker login -u %USER% -p %PASS% || exit /b 1'
+                    bat 'docker push alezuleta/my-tech:latest || exit /b 1'
                 }
             }
         }
