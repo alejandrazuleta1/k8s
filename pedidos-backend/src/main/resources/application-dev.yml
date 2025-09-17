@@ -45,26 +45,3 @@ app:
   name: Sistema de Gestión de Pedidos
   version: 1.0.0
   description: Backend para gestión de pedidos con Spring Boot
-
----
-# Perfil de desarrollo (H2)
-spring:
-  datasource:
-    url: jdbc:h2:mem:pedidos_dev
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-    database-platform: org.hibernate.dialect.H2Dialect
-
-logging:
-  level:
-    com.pedidos.backend: DEBUG
-    org.hibernate.SQL: DEBUG

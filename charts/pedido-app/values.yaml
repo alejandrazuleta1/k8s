@@ -178,8 +178,11 @@ db:
   auth:
     postgresPassword: "admin123"
     username: "pedidos_user"
-    password: "pedidos_password"
+    password: "user123"
     database: "pedidos_db"
+  service:
+    ports:
+      postgresql: 5432
   primary:
     persistence:
       enabled: true
@@ -191,3 +194,12 @@ db:
       requests:
         cpu: 250m
         memory: 256Mi
+
+# Configuración global
+global:
+  postgresql:
+    auth:
+      postgresPassword: "admin123"
+      username: "pedidos_user"
+      password: "user123"
+      database: "pedidos_db"
