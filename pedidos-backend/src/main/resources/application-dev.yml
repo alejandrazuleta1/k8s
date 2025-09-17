@@ -1,0 +1,70 @@
+# Configuración por defecto (desarrollo con H2)
+spring:
+  datasource:
+    url: jdbc:h2:mem:pedidos_dev
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  # Configuración de H2 Console (solo desarrollo)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: false
+
+  # Configuración de JPA/Hibernate
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # Para H2 en desarrollo
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  # Configuración de Jackson (JSON)
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    time-zone: America/Bogota
+
+# Configuración de logging
+logging:
+  level:
+    com.pedidos.backend: INFO
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+# Configuración personalizada para la aplicación
+app:
+  name: Sistema de Gestión de Pedidos
+  version: 1.0.0
+  description: Backend para gestión de pedidos con Spring Boot
+
+---
+# Perfil de desarrollo (H2)
+spring:
+  datasource:
+    url: jdbc:h2:mem:pedidos_dev
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+
+logging:
+  level:
+    com.pedidos.backend: DEBUG
+    org.hibernate.SQL: DEBUG

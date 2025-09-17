@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+  # Configuración de Jackson (JSON)
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    time-zone: America/Bogota
+
+# Configuración personalizada para la aplicación
+app:
+  name: Sistema de Gestión de Pedidos
+  version: 1.0.0
+  description: Backend para gestión de pedidos con Spring Boot
+
+spring:
+  application:
+    name: pedidos-backend
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://10.99.155.21:5432/pedidos_db}
+    username: ${DATABASE_USER:pedidos_user}
+    password: ${DATABASE_PASSWORD:pedidos_password}
+    driver-class-name: org.postgresql.Driver
+  h2:
+    console:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+logging:
+  level:
+    com.pedidos.backend: WARN
+    root: WARN
+    org.hibernate.SQL: WARN
