@@ -170,7 +170,7 @@ tolerations: []
 affinity: {}
 
 env:
-  SPRING_PROFILES_ACTIVE: "k8s"
+  ENVIRONMENT: "prod"
   JPA_DDL_AUTO: "update"
 
 db:

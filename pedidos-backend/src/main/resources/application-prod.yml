@@ -17,7 +17,7 @@ spring:
   application:
     name: pedidos-backend
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://my-tech-db/pedidos_db}
+    url: ${DATABASE_URL:jdbc:postgresql://my-tech-db.my-tech.svc.cluster.local/pedidos_db}
     username: ${DATABASE_USER:pedidos_user}
     password: ${DATABASE_PASSWORD:pedidos_password}
     driver-class-name: org.postgresql.Driver
