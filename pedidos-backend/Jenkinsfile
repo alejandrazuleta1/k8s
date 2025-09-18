@@ -11,7 +11,7 @@ pipeline {
             steps {
                 dir('pedidos-backend') {
                     script {
-                        bat 'docker build -t alezuleta/my-tech:latest . || exit /b 1'
+                        sh 'docker build -t alezuleta/my-tech:latest . || exit /b 1'
                     }
                 }
             }
@@ -21,8 +21,8 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials',
                                              usernameVariable: 'USER',
                                              passwordVariable: 'PASS')]) {
-                    bat 'docker login -u %USER% -p %PASS% || exit /b 1'
-                    bat 'docker push alezuleta/my-tech:latest || exit /b 1'
+                    sh 'docker login -u %USER% -p %PASS% || exit /b 1'
+                    sh 'docker push alezuleta/my-tech:latest || exit /b 1'
                 }
             }
         }
