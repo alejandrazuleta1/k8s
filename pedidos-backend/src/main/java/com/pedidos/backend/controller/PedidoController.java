@@ -76,15 +76,7 @@ public class PedidoController {
         }
     }
 
-    @GetMapping("/buscar/cliente")
-    public ResponseEntity<List<Pedido>> buscarPorCliente(@RequestParam String nombre) {
-        try {
-            List<Pedido> pedidos = pedidoService.buscarPedidosPorCliente(nombre);
-            return ResponseEntity.ok(pedidos);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
+
 
     @GetMapping("/buscar/producto")
     public ResponseEntity<List<Pedido>> buscarPorProducto(@RequestParam String producto) {
