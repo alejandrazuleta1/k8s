@@ -53,7 +53,7 @@ pipeline {
         }
         stage('Checkout repo charts') {
             steps {
-                git url: 'https://alejandrazuleta1.github.io/pedidos-charts', branch: 'main'
+                git url: 'https://github.com/alejandrazuleta1/pedidos-charts', branch: 'main'
                 script {
                     sh """
                         rm pedidos-charts/charts/pedido-app-0.1.0.tgz
