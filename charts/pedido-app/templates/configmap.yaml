@@ -7,7 +7,7 @@ metadata:
 data:
   # URL de la base de datos con el nombre real del servicio
   {{- if .Values.db.enabled }}
-  DATABASE_URL: "jdbc:postgresql://my-tech-db:5432/{{ .Values.db.auth.database }}"
+  DATABASE_URL: "jdbc:postgresql://pedidos-app-db:5432/{{ .Values.db.auth.database }}"
   DATABASE_DRIVER: "org.postgresql.Driver"
   {{- else }}
   DATABASE_URL: "jdbc:postgresql://external-db:5432/pedidos_db"
