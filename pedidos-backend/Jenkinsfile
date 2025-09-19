@@ -62,8 +62,8 @@ pipeline {
                         helm package pedido-app -d ../repo
 
                         #   generar/actualizar index.yaml en repo/
-                        helm repo index ../repo --url https://alejandrazuleta1.github.io/pedidos-charts/ --merge ../repo/index.yaml || \
-                        helm repo index ../repo --url https://alejandrazuleta1.github.io/pedidos-charts/
+                        helm repo index ../repo --url https://alejandrazuleta1.github.io/pedidos-charts/charts/ --merge ../repo/index.yaml || \
+                        helm repo index ../repo --url https://alejandrazuleta1.github.io/pedidos-charts/charts/
 
                         ls -R \$(pwd)
         				find .
@@ -76,7 +76,10 @@ pipeline {
                         echo "pedidos-charts/" >> .gitignore
                         echo "repo/" >> .gitignore
 
-                    
+                        #git add .
+                        #git commit -m "Update charts ${GIT_COMMIT_SHORT}"
+                        #git remote set-url origin https://${GIT_USER}:${GIT_TOKEN}@github.com/alejandrazuleta1/k8s
+                        #git push origin main
                     """
                 }
                 }
