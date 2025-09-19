@@ -60,6 +60,8 @@ pipeline {
                             ls -l
                             rm charts/pedido-app-0.1.0.tgz
                             cp /var/jenkins_home/workspace/unisabana/charts/pedido-app-0.1.0.tgz charts
+                            git config --global user.email "you@example.com"
+                            git config --global user.name "Your Name"
                             git add .
                             git commit -m "Cambio version"
                             git push
