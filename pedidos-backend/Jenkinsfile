@@ -51,16 +51,16 @@ pipeline {
                                 rm -rf repo
 
                                 #   actualizar values.yaml con el commit
-                                sed -i 's/tag: .*/tag: ${GIT_COMMIT_SHORT}/' var/jenkins_home/workspace/unisabana/pedidos-charts/charts/pedido-app/values.yaml
+                                sed -i 's/tag: .*/tag: ${GIT_COMMIT_SHORT}/' /var/jenkins_home/workspace/unisabana/pedidos-charts/charts/pedido-app/values.yaml
 
                                 #   bump versión en Chart.yaml
-                                yq -i -y '.version |= (split(".") | [.[0], .[1], ((.[2] | tonumber) + 1 | tostring)] | join("."))' var/jenkins_home/workspace/unisabana/pedidos-charts/charts/pedido-app/Chart.yaml
+                                yq -i -y '.version |= (split(".") | [.[0], .[1], ((.[2] | tonumber) + 1 | tostring)] | join("."))' /var/jenkins_home/workspace/unisabana/pedidos-charts/charts/pedido-app/Chart.yaml
 
                                 echo "Nueva versión del chart:"
-                                yq '.version' var/jenkins_home/workspace/unisabana/pedidos-charts/charts/pedido-app/Chart.yaml
+                                yq '.version' /var/jenkins_home/workspace/unisabana/pedidos-charts/charts/pedido-app/Chart.yaml
 
                                 #   empaquetar el chart hacia el directorio repo/
-                                helm package var/jenkins_home/workspace/unisabana/pedidos-charts/charts/pedido-app -d repo
+                                helm package /var/jenkins_home/workspace/unisabana/pedidos-charts/charts/pedido-app -d repo
 
                                 #   generar/actualizar index.yaml en repo/
                                 helm repo index repo --url https://alejandrazuleta1.github.io/pedidos-charts/charts/ --merge repo/index.yaml || \
@@ -72,8 +72,8 @@ pipeline {
                                 ls -l
 
                                cd ..
-                                echo "var/jenkins_home/workspace/unisabana/pedidos-charts/charts/pedido-app-0.1.0.tgz" >> .gitignore
-                                echo "var/jenkins_home/workspace/unisabana/pedidos-charts/charts/pedido-app/index.yaml" >> .gitignore
+                                echo "/var/jenkins_home/workspace/unisabana/pedidos-charts/charts/pedido-app-0.1.0.tgz" >> .gitignore
+                                echo "/var/jenkins_home/workspace/unisabana/pedidos-charts/charts/pedido-app/index.yaml" >> .gitignore
                                 echo "pedidos-charts/" >> .gitignore
                                 echo "repo/" >> .gitignore
 
