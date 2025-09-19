@@ -60,7 +60,7 @@ pipeline {
                         helm repo index ../repo --url https://alejandrazuleta1.github.io/pedidos-charts/ --merge ../repo/index.yaml || \
                         helm repo index ../repo --url https://alejandrazuleta1.github.io/pedidos-charts/
 
-                        ls -R $(pwd)
+                        ls -R \$(pwd)
         				find .
         				pwd
                         ls -l
