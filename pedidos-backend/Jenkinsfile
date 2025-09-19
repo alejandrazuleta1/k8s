@@ -42,21 +42,21 @@ pipeline {
             steps {
                 script {
                     sh """
-                        cd charts
+                       cd charts
 
-                        # 🔹 actualizar values.yaml con el commit
+                        #   actualizar values.yaml con el commit
                        sed -i 's/tag: .*/tag: ${GIT_COMMIT_SHORT}/' pedido-app/values.yaml
 
-                        # 🔹 bump versión en Chart.yaml
+                        #   bump versión en Chart.yaml
                         yq -i -y '.version |= (split(".") | [.[0], .[1], ((.[2] | tonumber) + 1 | tostring)] | join("."))' pedido-app/Chart.yaml
 
                         echo "Nueva versión del chart:"
                         yq '.version' pedido-app/Chart.yaml
 
-                        # 🔹 empaquetar el chart hacia el directorio repo/
+                        #   empaquetar el chart hacia el directorio repo/
                         helm package pedido-app -d ../repo
 
-                        # 🔹 generar/actualizar index.yaml en repo/
+                        #   generar/actualizar index.yaml en repo/
                         helm repo index ../repo --url https://alejandrazuleta1.github.io/pedidos-charts/ --merge ../repo/index.yaml || \
                         helm repo index ../repo --url https://alejandrazuleta1.github.io/pedidos-charts/
 
