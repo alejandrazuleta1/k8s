@@ -80,8 +80,8 @@ pipeline {
                                 rm charts/pedido-app-0.1.0.tgz
                                 cp /var/jenkins_home/workspace/unisabana/charts/pedido-app-0.1.0.tgz charts
                                 cp /var/jenkins_home/workspace/unisabana/charts/index.yaml  .
-                                git config --global user.email "you@example.com"
-                                git config --global user.name "Your Name"
+                                #git config --global user.email "you@example.com"
+                                #git config --global user.name "Your Name"
                                 git add .
                                 git commit -m "Update demo-api image tag to ${GIT_COMMIT_SHORT}"
                                 git remote set-url origin https://${GIT_USER}:${GIT_TOKEN}@github.com/alejandrazuleta1/pedidos-charts
