@@ -60,7 +60,7 @@ pipeline {
                                 yq '.version' /var/jenkins_home/workspace/unisabana/pedidos-charts/charts/pedido-app/Chart.yaml
 
                                 #   empaquetar el chart hacia el directorio repo/
-                                helm package /var/jenkins_home/workspace/unisabana/pedidos-charts/charts/pedido-app -d repo
+                                helm package /var/jenkins_home/workspace/unisabana/pedidos-charts/charts/pedido-app -d ../repo
 
                                 #   generar/actualizar index.yaml en repo/
                                 helm repo index repo --url https://alejandrazuleta1.github.io/pedidos-charts/charts/ --merge repo/index.yaml || \
