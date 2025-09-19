@@ -86,10 +86,6 @@ public class PedidoController {
         }
     }
 
-    @GetMapping("/nuevo")
-    public ResponseEntity<String> nuevo(){
-        return ResponseEntity.ok("Nuevo endpoint");
-    }
 
     @GetMapping("/buscar/producto")
     public ResponseEntity<List<Pedido>> buscarPorProducto(@RequestParam String producto) {
