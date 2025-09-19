@@ -48,7 +48,7 @@ pipeline {
                        cd charts
 
                         rm -rf ../repo
-                        
+
                         #   actualizar values.yaml con el commit
                         sed -i 's/tag: .*/tag: ${GIT_COMMIT_SHORT}/' pedido-app/values.yaml
 
@@ -76,10 +76,7 @@ pipeline {
                         echo "pedidos-charts/" >> .gitignore
                         echo "repo/" >> .gitignore
 
-                        git add .
-                        git commit -m "Update charts ${GIT_COMMIT_SHORT}"
-                        git remote set-url origin https://${GIT_USER}:${GIT_TOKEN}@github.com/alejandrazuleta1/k8s
-                        git push origin main
+                    
                     """
                 }
                 }
