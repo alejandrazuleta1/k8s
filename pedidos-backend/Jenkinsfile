@@ -1,10 +1,6 @@
 pipeline {
-    agent {
-        docker {
-            image 'alpine/helm:3.15.3' // imagen oficial de Helm
-            args '-u root:root'        // opcional si necesitas permisos
-        }
-    }
+    agent any
+
     environment {
         GIT_COMMIT_SHORT = GIT_COMMIT.take(7)
     }
