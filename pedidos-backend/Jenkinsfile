@@ -38,6 +38,11 @@ pipeline {
                 }
             }
         }
+         stage('replace version imagen in values.yaml') {
+            steps {
+                 sh ' sed -i "s/tag: .*/tag: ${GIT_COMMIT_SHORT}/" pedido-app/values.yaml'
+            }
+        }
         stage('Update Helm Values') {
             steps {
                 script {
@@ -45,7 +50,7 @@ pipeline {
                        cd charts
 
                         #   actualizar values.yaml con el commit
-                       sed -i "s/tag: .*/tag: $GIT_COMMIT_SHORT/" pedido-app/values.yaml
+                       # sed -i "s/tag: .*/tag: $GIT_COMMIT_SHORT/" pedido-app/values.yaml
 
                         #   bump versión en Chart.yaml
                         yq -i -y '.version |= (split(".") | [.[0], .[1], ((.[2] | tonumber) + 1 | tostring)] | join("."))' pedido-app/Chart.yaml
