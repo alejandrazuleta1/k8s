@@ -63,7 +63,7 @@ pipeline {
                                 helm package /var/jenkins_home/workspace/unisabana/pedidos-charts/charts/pedido-app -d ../repo
 
                                 #   generar/actualizar index.yaml en repo/
-                                helm repo index repo --url https://alejandrazuleta1.github.io/pedidos-charts/charts/ --merge repo/index.yaml || \
+                                helm repo index repo --url https://alejandrazuleta1.github.io/pedidos-charts/charts/ --merge ../repo/index.yaml || \
                                 helm repo index repo --url https://alejandrazuleta1.github.io/pedidos-charts/charts/
 
                                 ls -R \$(pwd)
