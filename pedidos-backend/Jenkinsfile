@@ -41,59 +41,44 @@ pipeline {
        
         stage('Update Helm Values') {
             steps {
-                script {
-
-                     withCredentials([usernamePassword(credentialsId: 'jenkins-cred', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
-                    sh """
-                       cd charts
-
-                        rm -rf ../repo
-
-                        #   actualizar values.yaml con el commit
-                        sed -i 's/tag: .*/tag: ${GIT_COMMIT_SHORT}/' pedido-app/values.yaml
-
-                        #   bump versión en Chart.yaml
-                        yq -i -y '.version |= (split(".") | [.[0], .[1], ((.[2] | tonumber) + 1 | tostring)] | join("."))' pedido-app/Chart.yaml
-
-                        echo "Nueva versión del chart:"
-                        yq '.version' pedido-app/Chart.yaml
-
-                        #   empaquetar el chart hacia el directorio repo/
-                        helm package pedido-app -d ../repo
-
-                        #   generar/actualizar index.yaml en repo/
-                        helm repo index ../repo --url https://alejandrazuleta1.github.io/pedidos-charts/charts/ --merge ../repo/index.yaml || \
-                        helm repo index ../repo --url https://alejandrazuleta1.github.io/pedidos-charts/charts/
-
-                        ls -R \$(pwd)
-        				find .
-        				pwd
-                        ls -l
-                        
-                       cd ..
-                        echo "charts/pedido-app-0.1.0.tgz" >> .gitignore
-                        echo "charts/pedido-app/index.yaml" >> .gitignore
-                        echo "pedidos-charts/" >> .gitignore
-                        echo "repo/" >> .gitignore
-
-                        #git add .
-                        #git commit -m "Update charts ${GIT_COMMIT_SHORT}"
-                        #git remote set-url origin https://${GIT_USER}:${GIT_TOKEN}@github.com/alejandrazuleta1/k8s
-                        #git push origin main
-
-                        echo "Proceso de actualización del chart completado."
-                    """
-                }
-                }
-            }
-        }
-        stage('Checkout repo charts') {
-            steps {
                 dir('pedidos-charts') {
-                    withCredentials([usernamePassword(credentialsId: 'jenkins-cred', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
-                        git url: 'https://github.com/alejandrazuleta1/pedidos-charts', branch: 'main'
-                        script {
+                    script {
+                        withCredentials([usernamePassword(credentialsId: 'jenkins-cred', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
+                            git url: 'https://github.com/alejandrazuleta1/pedidos-charts', branch: 'main'
                             sh """
+                               cd charts
+
+                                rm -rf ../repo
+
+                                #   actualizar values.yaml con el commit
+                                sed -i 's/tag: .*/tag: ${GIT_COMMIT_SHORT}/' pedido-app/values.yaml
+
+                                #   bump versión en Chart.yaml
+                                yq -i -y '.version |= (split(".") | [.[0], .[1], ((.[2] | tonumber) + 1 | tostring)] | join("."))' pedido-app/Chart.yaml
+
+                                echo "Nueva versión del chart:"
+                                yq '.version' pedido-app/Chart.yaml
+
+                                #   empaquetar el chart hacia el directorio repo/
+                                helm package pedido-app -d ../repo
+
+                                #   generar/actualizar index.yaml en repo/
+                                helm repo index ../repo --url https://alejandrazuleta1.github.io/pedidos-charts/charts/ --merge ../repo/index.yaml || \
+                                helm repo index ../repo --url https://alejandrazuleta1.github.io/pedidos-charts/charts/
+
+                                ls -R \$(pwd)
+                                find .
+                                pwd
+                                ls -l
+
+                               cd ..
+                                echo "charts/pedido-app-0.1.0.tgz" >> .gitignore
+                                echo "charts/pedido-app/index.yaml" >> .gitignore
+                                echo "pedidos-charts/" >> .gitignore
+                                echo "repo/" >> .gitignore
+
+                                echo "Proceso de actualización del chart completado."
+
                                 ls -l
                                 cp ../repo/pedido-app-*.tgz charts/.
                                 cp ../repo/index.yaml .
