@@ -1,5 +1,10 @@
 pipeline {
     agent any
+
+    environment {
+            GIT_COMMIT_SHORT = GIT_COMMIT.take(7)
+        }
+
     triggers {
         githubPush()
     }
@@ -13,7 +18,7 @@ pipeline {
             steps {
                 dir('pedidos-backend') {
                     script {
-                        sh 'docker build -t alezuleta/my-tech:latest .'
+                        sh 'docker build -t alezuleta/my-tech:${env.GIT_COMMIT_SHORT} .'
                     }
                 }
             }
@@ -24,7 +29,7 @@ pipeline {
                                              usernameVariable: 'USER',
                                              passwordVariable: 'PASS')]) {
                     sh 'docker login -u $USER -p $PASS'
-                    sh 'docker push alezuleta/my-tech:latest'
+                    sh 'docker push alezuleta/my-tech:${env.GIT_COMMIT_SHORT}'
                 }
             }
         }
