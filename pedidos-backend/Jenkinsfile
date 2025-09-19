@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    triggers {
+        githubPush()
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -21,7 +23,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials',
                                              usernameVariable: 'USER',
                                              passwordVariable: 'PASS')]) {
-                    sh 'docker login -u %USER% -p %PASS%'
+                    sh 'docker login -u $USER -p $PASS'
                     sh 'docker push alezuleta/my-tech:latest'
                 }
             }
