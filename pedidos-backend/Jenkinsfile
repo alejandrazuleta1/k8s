@@ -42,6 +42,8 @@ pipeline {
         stage('Update Helm Values') {
             steps {
                 script {
+
+                     withCredentials([usernamePassword(credentialsId: 'jenkins-cred', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
                     sh """
                        cd charts
 
@@ -71,12 +73,13 @@ pipeline {
                         echo "charts/pedido-app/index.yaml" >> .gitignore
                         echo "pedidos-charts/" >> .gitignore
                         echo "repo/" >> .gitignore
-                        
+
                         git add .
                         git commit -m "Update charts ${GIT_COMMIT_SHORT}"
                         git remote set-url origin https://${GIT_USER}:${GIT_TOKEN}@github.com/alejandrazuleta1/k8s
                         git push origin main
                     """
+                }
                 }
             }
         }
