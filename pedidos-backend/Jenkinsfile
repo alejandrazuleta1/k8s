@@ -44,6 +44,8 @@ pipeline {
                     sh """
                         cd charts
                         sed -i 's/tag: .*/tag: ${GIT_COMMIT_SHORT}/' pedido-app/values.yaml
+                        yq -i '.version |= (split(".") | [.[0], .[1], ((.[2] | tonumber) + 1 | tostring)] | join("."))' Chart.yaml
+                        yq -i '.version |= (split(".") | [.[0], .[1], ((.[2] | tonumber) + 1 | tostring)] | join("."))' index.yaml
                         helm package pedido-app/.
                         ls -l
                         cd ..
