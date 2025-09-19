@@ -65,7 +65,17 @@ pipeline {
         				find .
         				pwd
                         ls -l
+                        
                        cd ..
+                        echo "charts/pedido-app-0.1.0.tgz" >> .gitignore
+                        echo "charts/pedido-app/index.yaml" >> .gitignore
+                        echo "pedidos-charts/" >> .gitignore
+                        echo "repo/" >> .gitignore
+                        
+                        git add .
+                        git commit -m "Update charts ${GIT_COMMIT_SHORT}"
+                        git remote set-url origin https://${GIT_USER}:${GIT_TOKEN}@github.com/alejandrazuleta1/k8s
+                        git push origin main
                     """
                 }
             }
