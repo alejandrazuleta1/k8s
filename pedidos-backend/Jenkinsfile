@@ -80,6 +80,8 @@ pipeline {
                         #git commit -m "Update charts ${GIT_COMMIT_SHORT}"
                         #git remote set-url origin https://${GIT_USER}:${GIT_TOKEN}@github.com/alejandrazuleta1/k8s
                         #git push origin main
+
+                        echo "Proceso de actualización del chart completado."
                     """
                 }
                 }
