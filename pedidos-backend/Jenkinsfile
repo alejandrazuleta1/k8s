@@ -68,7 +68,7 @@ pipeline {
                                 ls -l
                                 rm charts/pedido-app-0.1.0.tgz
                                 cp /var/jenkins_home/workspace/unisabana/charts/pedido-app-0.1.0.tgz charts
-                                yq -y '.version |= (split(".") | [.[0], .[1], ((.[2] | tonumber) + 1 | tostring)] | join("."))' index.yaml
+                                cp /var/jenkins_home/workspace/unisabana/charts/index.yaml  .
                                 git config --global user.email "you@example.com"
                                 git config --global user.name "Your Name"
                                 git add .
