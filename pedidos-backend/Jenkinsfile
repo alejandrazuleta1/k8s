@@ -1,6 +1,10 @@
 pipeline {
-    agent any
-
+    agent {
+        docker {
+            image 'alpine/helm:3.15.3' // imagen oficial de Helm
+            args '-u root:root'        // opcional si necesitas permisos
+        }
+    }
     environment {
         GIT_COMMIT_SHORT = GIT_COMMIT.take(7)
     }
@@ -9,6 +13,11 @@ pipeline {
         githubPush()
     }
     stages {
+        stage('Helm version') {
+            steps {
+                sh 'helm version'
+            }
+        }
         stage('Checkout') {
             steps {
                 git url: 'https://github.com/alejandrazuleta1/k8s', branch: 'main'
@@ -30,6 +39,18 @@ pipeline {
                                              passwordVariable: 'PASS')]) {
                     sh 'docker login -u $USER -p $PASS'
                     sh 'docker push alezuleta/my-tech:${GIT_COMMIT_SHORT}'
+                }
+            }
+        }
+        stage('Update Helm Values') {
+            steps {
+                script {
+                    sh """
+                        cd charts
+                        sed -i 's/tag: .*/tag: ${IMAGE_TAG}/' pedido-app/values.yaml
+                        helm package ./
+                        ls -l
+                    """
                 }
             }
         }
