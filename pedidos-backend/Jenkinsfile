@@ -45,7 +45,13 @@ pipeline {
                         cd charts
                         sed -i 's/tag: .*/tag: ${GIT_COMMIT_SHORT}/' pedido-app/values.yaml
                         yq -y '.version |= (split(".") | [.[0], .[1], ((.[2] | tonumber) + 1 | tostring)] | join("."))' pedido-app/Chart.yaml
+                        echo "aplicando cambio de YQ"
+                        echo "Nueva versión del chart:"
+                        yq '.version' pedido-app/Chart.yaml
                         helm package pedido-app/.
+                        echo "actualizando index"
+                        helm repo index pedido-app/. --url https://alejandrazuleta1.github.io/pedidos-charts/
+                        pwd
                         ls -l
                         cd ..
                     """
