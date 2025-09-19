@@ -44,7 +44,7 @@ pipeline {
                     sh """
                         cd charts
                         sed -i 's/tag: .*/tag: ${GIT_COMMIT_SHORT}/' pedido-app/values.yaml
-                        helm package ./
+                        helm package pedido-app/.
                         ls -l
                     """
                 }
