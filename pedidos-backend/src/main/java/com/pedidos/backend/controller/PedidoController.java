@@ -88,7 +88,7 @@ public class PedidoController {
 
     @GetMapping("/nuevo")
     public ResponseEntity<String> nuevo(){
-        return ResponseEntity.ok("Nuevo endpoint");;
+        return ResponseEntity.ok("Nuevo endpoint");
     }
 
     @GetMapping("/buscar/producto")
