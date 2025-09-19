@@ -40,7 +40,9 @@ pipeline {
         }
          stage('replace version imagen in values.yaml') {
             steps {
+                 sh 'cd charts'
                  sh ' sed -i "s/tag: .*/tag: ${GIT_COMMIT_SHORT}/" pedido-app/values.yaml'
+                 sh 'cd ..'
             }
         }
         stage('Update Helm Values') {
