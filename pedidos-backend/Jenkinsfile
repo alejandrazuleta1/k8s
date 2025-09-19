@@ -47,6 +47,8 @@ pipeline {
                     sh """
                        cd charts
 
+                        rm -rf ../repo
+                        
                         #   actualizar values.yaml con el commit
                         sed -i 's/tag: .*/tag: ${GIT_COMMIT_SHORT}/' pedido-app/values.yaml
 
