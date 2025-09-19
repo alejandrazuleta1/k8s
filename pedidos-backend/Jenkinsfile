@@ -53,13 +53,18 @@ pipeline {
         }
         stage('Checkout repo charts') {
             steps {
-                git url: 'https://github.com/alejandrazuleta1/pedidos-charts', branch: 'main'
-                script {
-                    sh """
-                        ls -l
-                        rm pedidos-backend/charts/pedido-app-0.1.0.tgz
-                        cp pedido-app/charts/pedido-app-0.1.0.tgz pedidos-charts/charts
-                    """
+                dir('pedidos-charts') {
+                    git url: 'https://github.com/alejandrazuleta1/pedidos-charts', branch: 'main'
+                    script {
+                        sh """
+                            ls -l
+                            rm charts/pedido-app-0.1.0.tgz
+                            cp /var/jenkins_home/workspace/unisabana/charts/pedido-app-0.1.0.tgz pedidos-charts/charts
+                            git add .
+                            git commit -m "Cambio version"
+                            git push
+                        """
+                    }
                 }
             }
         }
