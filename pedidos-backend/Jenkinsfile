@@ -78,7 +78,7 @@ pipeline {
                         script {
                             sh """
                                 ls -l
-                                cp ../repo/pedido-app-*.tgz .
+                                cp ../repo/pedido-app-*.tgz charts/.
                                 cp ../repo/index.yaml .
                                 #cp /var/jenkins_home/workspace/unisabana/charts/pedido-app-0.1.0.tgz charts
                                 #cp /var/jenkins_home/workspace/unisabana/charts/index.yaml  .
