@@ -43,17 +43,33 @@ pipeline {
                 script {
                     sh """
                         cd charts
+
+                        # 🔹 actualizar values.yaml con el commit
                         sed -i 's/tag: .*/tag: ${GIT_COMMIT_SHORT}/' pedido-app/values.yaml
-                        yq -y '.version |= (split(".") | [.[0], .[1], ((.[2] | tonumber) + 1 | tostring)] | join("."))' pedido-app/Chart.yaml
-                        echo "aplicando cambio de YQ"
+
+                        # 🔹 bump versión en Chart.yaml
+                        yq -i -y '.version |= (split(".") | [.[0], .[1], ((.[2] | tonumber) + 1 | tostring)] | join("."))' pedido-app/Chart.yaml
+
                         echo "Nueva versión del chart:"
                         yq '.version' pedido-app/Chart.yaml
-                        helm package pedido-app/.
-                        echo "actualizando index"
-                        helm repo index pedido-app/. --url https://alejandrazuleta1.github.io/pedidos-charts/
-                        pwd
+
+                        # 🔹 empaquetar el chart hacia el directorio repo/
+                        helm package pedido-app -d ../repo
+
+                        # 🔹 generar/actualizar index.yaml en repo/
+                        helm repo index ../repo --url https://alejandrazuleta1.github.io/pedidos-charts/ --merge ../repo/index.yaml || \
+                        helm repo index ../repo --url https://alejandrazuleta1.github.io/pedidos-charts/
+
+                        ls -R $(pwd)
+        				find .
+        				pwd
                         ls -l
                         cd ..
+                        cd repo
+
+                        git add .
+                        git commit -m "update chart version $(date +%F-%T)" || true
+                        git push origin gh-pages
                     """
                 }
             }
