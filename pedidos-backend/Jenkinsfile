@@ -59,7 +59,7 @@ pipeline {
                         sh """
                             ls -l
                             rm charts/pedido-app-0.1.0.tgz
-                            cp /var/jenkins_home/workspace/unisabana/charts/pedido-app-0.1.0.tgz pedidos-charts/charts
+                            cp /var/jenkins_home/workspace/unisabana/charts/pedido-app-0.1.0.tgz charts
                             git add .
                             git commit -m "Cambio version"
                             git push
