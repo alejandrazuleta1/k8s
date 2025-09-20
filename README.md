@@ -1,6 +1,6 @@
 # Diplomado En Arquitectura de Software - Trabajo Final k8s
 
-## Grupo: 9
+## Grupo: 2
 
 * Jaime Alejandro Acero Vargas
 * Cesar Augusto Bernal Sierra
@@ -204,3 +204,4 @@ echo -e "\n"
 
 ##  5. Demostración en vivo
 [https://www.youtube.com/watch?v=Gl-4XNxRTq0 ](https://www.youtube.com/watch?v=Gl-4XNxRTq0 )
+En el video se muestra grupo 9 en el título pero fue una confusión, estamos en el grupo 2.
