@@ -1,13 +1,14 @@
 # Diplomado En Arquitectura de Software - Trabajo Final k8s
 
 ## Grupo: 9
-Jaime Alejandro Acero Vargas
-Cesar Augusto Bernal Sierra
-Alejandra Zuleta
-Jhonnier Alberto Sanchez Dorado 
-Juan Jose Rojas
-David Humberto Morena
-Nestor Raúl Camacho
+
+* Jaime Alejandro Acero Vargas
+* Cesar Augusto Bernal Sierra
+* Alejandra Zuleta
+* Jhonnier Alberto Sanchez Dorado 
+* Juan Jose Rojas
+* David Humberto Morena
+* Nestor Raúl Camacho
 
 ## Repositorios:
 
@@ -201,4 +202,5 @@ curl -s -X PUT "$BASE_URL/api/pedidos/$PEDIDO_ID/estado?estado=COMPLETADO" | jq 
 echo -e "\n"
 ```
 
-##  5. Demostracion en vivo
+##  5. Demostración en vivo
+[https://www.youtube.com/watch?v=Gl-4XNxRTq0 ](https://www.youtube.com/watch?v=Gl-4XNxRTq0 )
